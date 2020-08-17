@@ -1,0 +1,19 @@
+cache:
+  untracked: true
+  key: "$CI_BUILD_REF_NAME"
+  paths:
+    - node_modules/
+before_script:
+  - chcp 65001
+stages: # 要执行的步骤
+  - build
+build: # 步骤 build
+    stage: build
+    script:
+      - npm install # 要执行的命令
+      - npm run build
+      - Copy-Item -Path "dist/*" -Destination "/yzh-gitlab-ci-test" -Force -Recurse
+    only:
+      - master
+    tags:
+      - yzh
